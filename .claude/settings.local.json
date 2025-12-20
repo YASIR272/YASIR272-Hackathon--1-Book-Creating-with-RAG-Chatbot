@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch --all --prune)",
+      "Bash(pwsh -File .specify/scripts/powershell/update-agent-context.ps1 -AgentType claude)",
+      "Bash(pwsh -File .specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
+      "Bash(pwsh -File .specify/scripts/powershell/setup-plan.ps1 -Json)",
+      "Bash(pwsh -File .specify/scripts/powershell/create-new-feature.ps1 -Number 3 -ShortName \"isaac-ai-brain\" -Json \"/sp.specify\n\nModule: Module 3 – The AI-Robot Brain (NVIDIA Isaac™)\n\nAudience:\nAI developers advancing into perception and navigation for humanoid robots.\n\nChapters:\n\n1. NVIDIA Isaac Sim Basics  \n   Photorealistic simulation, synthetic data generation, and environment setup.\n\n2. Isaac ROS & VSLAM  \n   Hardware-accelerated visual SLAM, perception pipelines, and navigation.\n\n3. Path Planning with Nav2  \n   Bipedal humanoid motion, trajectory planning, and AI-driven control.\")",
+      "Bash(pwsh -File .specify/scripts/powershell/check-prerequisites.ps1 -Json)",
+      "Bash(npm run build)",
+      "Bash(cat frontend_book/docs/module3/chapter1-isaac-sim-basics.md)",
+      "Bash(cat frontend_book/docs/module3/chapter2-isaac-ros-vslam.md)",
+      "Bash(cat frontend_book/docs/module3/chapter3-path-planning-nav2.md)",
+      "Bash(npm run start)",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1 -Json)",
+      "Bash(.specify/scripts/powershell/create-new-feature.ps1 -Json \"/sp.specify\n\nModule: Module 4 – Vision-Language-Action (VLA)\n\nAudience:\nAI developers integrating language models with humanoid robotics.\n\nChapters:\n\n1. Voice-to-Action with OpenAI Whisper  \n   Converting natural language commands into actionable ROS 2 instructions.\n\n2. Cognitive Planning with LLMs  \n   Translating tasks (\"Clean the room\") into sequences of robot actions.\n\n3. Capstone: Autonomous Humanoid  \n   Full pipeline: voice command → planning → navigation → object recognition → manipulation.\n\n\"\"\" --number 5 --short-name \"vla-humanoid-integration\")",
+      "Bash(git checkout 004-voice-cognitive-autonomous)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)"
+    ]
+  }
+}

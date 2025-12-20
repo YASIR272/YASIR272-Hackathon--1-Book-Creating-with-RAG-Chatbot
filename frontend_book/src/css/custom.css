@@ -1,0 +1,357 @@
+/**
+ * Custom CSS for Physical AI & Humanoid Robotics Book
+ */
+
+/* Color palette for Physical AI & Humanoid Robotics theme */
+:root {
+  --ifm-color-primary: #2c3e50;
+  --ifm-color-primary-dark: #1a2530;
+  --ifm-color-primary-darker: #0d1218;
+  --ifm-color-primary-darkest: #050709;
+  --ifm-color-primary-light: #3d556e;
+  --ifm-color-primary-lighter: #4d6b8c;
+  --ifm-color-primary-lightest: #6c8cb7;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode colors */
+html[data-theme='dark'] {
+  --ifm-color-primary: #4da6ff;
+  --ifm-color-primary-dark: #1a8cff;
+  --ifm-color-primary-darker: #0d7bff;
+  --ifm-color-primary-darkest: #0a64cc;
+  --ifm-color-primary-light: #7fbfff;
+  --ifm-color-primary-lighter: #b2d9ff;
+  --ifm-color-primary-lightest: #e6f2ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced header and navigation */
+.navbar {
+  background: linear-gradient(135deg, var(--ifm-color-primary), #1a2530);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+}
+
+.navbar__title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Enhanced hero section */
+.hero {
+  background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero__subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Enhanced buttons */
+.button {
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.button--primary {
+  background-color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Card styling for modules */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card__header h3 {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+/* Enhanced sidebar */
+.menu {
+  font-size: 0.9rem;
+}
+
+.menu__list-item-collapsible {
+  border-radius: 6px;
+  margin-bottom: 2px;
+}
+
+.menu__link {
+  border-radius: 6px;
+  margin: 2px 0;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #1a2530;
+  color: white;
+}
+
+.footer__title {
+  color: white;
+  font-weight: 600;
+}
+
+.footer__link-item {
+  color: #b2d9ff;
+}
+
+.footer__link-item:hover {
+  color: white;
+}
+
+/* Content styling */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown h1 {
+  border-bottom: 2px solid var(--ifm-color-primary);
+  padding-bottom: 0.5rem;
+}
+
+.markdown h2 {
+  border-left: 4px solid var(--ifm-color-primary);
+  padding-left: 1rem;
+}
+
+.markdown p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Code block styling */
+.prism-code {
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+
+/* Blockquote styling */
+blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  background-color: rgba(44, 62, 80, 0.05);
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+/* Table styling */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 1rem 0;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid var(--ifm-table-border-color);
+}
+
+/* Improved typography */
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* Responsive design improvements */
+@media (max-width: 996px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .navbar__title {
+    font-size: 1rem;
+  }
+}
+
+/* Custom animation for interactive elements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to key elements */
+.hero, .card, .markdown {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Special styling for important notes */
+.alert--info {
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.alert--success {
+  border-radius: 8px;
+  border-left: 4px solid #27ae60;
+}
+
+.alert--danger {
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+
+/* Enhanced search bar */
+.navbar__search {
+  padding-left: 1rem;
+}
+
+/* Custom styling for the book's main content area */
+.main-wrapper {
+  min-height: calc(100vh - 120px);
+  padding: 2rem 0;
+}
+
+/* Improve readability for code documentation */
+.code-block {
+  margin: 1rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Better spacing for content sections */
+.container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Custom styling for navigation links */
+.pagination-nav__link {
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  transition: all 0.3s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer copyright styling */
+.footer--dark {
+  background-color: #0d1218;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 0;
+  }
+
+  .hero__title {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
+
+/* Enhanced content section styling */
+.docItemContainer {
+  max-width: 85% !important;
+}
+
+/* Styling for lists */
+.markdown ul, .markdown ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.markdown li {
+  margin-bottom: 0.5rem;
+}
+
+/* Enhanced image styling */
+img {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code inline styling */
+.markdown code {
+  background-color: rgba(44, 62, 80, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Better content spacing */
+.markdown {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* Enhanced sidebar for docs */
+.theme-doc-sidebar-container {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+/* Learning objectives styling */
+.learning-objectives {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.learning-objectives h3 {
+  margin-top: 0;
+  color: #0d47a1;
+}

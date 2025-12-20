@@ -1,55 +1,79 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT:
+Version change: N/A -> 1.0.0
+Added sections: All principles and sections for Docusaurus Book and RAG Chatbot project
+Removed sections: None (first version)
+Modified principles: None (first version)
+Templates requiring updates: ✅ Updated
+Follow-up TODOs: None
+-->
+# Docusaurus Book with RAG Chatbot Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. AI/Spec-Driven Development
+Every feature and component must be developed using Spec-Kit Plus and Claude Code methodologies. All implementations start with a well-defined specification that guides the development process. Documentation and code must be generated simultaneously to ensure consistency and maintainability.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Docusaurus-First Approach
+All book content must be created using Docusaurus as the primary documentation framework. The site structure, navigation, and content organization must follow Docusaurus best practices. All static content generation must leverage Docusaurus capabilities for optimal performance and SEO.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Test-First (NON-NEGOTIABLE)
+TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced. All components, especially the RAG chatbot functionality, must have comprehensive test coverage before implementation.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. RAG Integration Excellence
+The Retrieval-Augmented Generation chatbot must be seamlessly integrated into the Docusaurus book. The RAG system must utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier. The chatbot must answer user questions based only on book content, including text selection functionality.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Deployment-Ready Architecture
+The system must be designed for deployment to GitHub Pages with integrated backend services. Frontend (Docusaurus) and backend (FastAPI/RAG services) must be properly decoupled while maintaining tight integration for the chatbot functionality. All deployment configurations must support automated CI/CD pipelines.
 
-### [PRINCIPLE_6_NAME]
+### VI. Performance and Scalability
+All components must be optimized for performance, particularly the RAG chatbot response times. Database queries, vector storage operations, and API calls must be efficient. The solution must handle concurrent users and scale appropriately within the constraints of free-tier services.
 
+## Technical Constraints
 
-[PRINCIPLE__DESCRIPTION]
+### Technology Stack Requirements
+- Frontend: Docusaurus v3.x with React
+- Backend: FastAPI for RAG service endpoints
+- Database: Neon Serverless Postgres for metadata
+- Vector Storage: Qdrant Cloud Free Tier for embeddings
+- AI Integration: OpenAI Agents/ChatKit SDKs
+- Deployment: GitHub Pages for frontend, containerized backend for API services
+- Development: Claude Code and Spec-Kit Plus for all development activities
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### Security Requirements
+- All API endpoints must implement proper authentication and rate limiting
+- Sensitive data (API keys, connection strings) must be stored in environment variables
+- Client-side security for chatbot interactions must prevent injection attacks
+- Data privacy must be maintained for user queries and selections
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Performance Standards
+- Page load times must be under 3 seconds for 95% of visits
+- RAG chatbot response times must be under 5 seconds for 90% of queries
+- Vector search operations must return results within 2 seconds
+- System must support at least 100 concurrent users on free-tier infrastructure
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Specification Requirements
+- All features must begin with a detailed specification document
+- Book content must be outlined and reviewed before implementation
+- RAG chatbot behavior and capabilities must be clearly defined
+- Integration points between Docusaurus and backend services must be specified
+
+### Review Process
+- All code changes must undergo peer review
+- Documentation updates must be verified for accuracy and completeness
+- RAG chatbot responses must be validated for relevance and correctness
+- Performance benchmarks must be met before merging
+
+### Quality Gates
+- All tests must pass before deployment
+- Code coverage must exceed 80% for critical components
+- Security scanning must show no high-severity vulnerabilities
+- Performance metrics must meet established standards
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+The constitution governs all development activities for the Docusaurus Book with RAG Chatbot project. All team members must comply with these principles and constraints. Amendments to this constitution require documented justification, team approval, and a migration plan for existing implementations. All pull requests and reviews must verify constitutional compliance. Complexity must be justified with clear benefits to the project goals.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-16 | **Last Amended**: 2025-12-16

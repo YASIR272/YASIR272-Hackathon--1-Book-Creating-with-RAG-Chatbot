@@ -1,0 +1,706 @@
+openapi: 3.0.3
+info:
+  title: Vision-Language-Action (VLA) API for Humanoid Robotics
+  description: API for controlling and managing Vision-Language-Action systems in humanoid robots
+  version: 1.0.0
+  contact:
+    name: ROS 2 for AI Developers Team
+    email: contact@example.com
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://vla-humanoid-api.example.com
+    description: Production server
+
+paths:
+  /vla/process-voice-command:
+    post:
+      summary: Process a voice command through the VLA pipeline
+      description: Takes a voice command and processes it through vision, language, and action systems
+      operationId: processVoiceCommand
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoiceCommandRequest'
+            example:
+              command_text: "Go to the kitchen and bring me a cup"
+              audio_data: null
+              context:
+                robot_position: {"x": 0.0, "y": 0.0, "theta": 0.0}
+                visible_objects: ["cup", "kitchen_counter"]
+                robot_capabilities: ["navigation", "manipulation"]
+      responses:
+        '200':
+          description: Successfully processed voice command
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceCommandResponse'
+        '400':
+          description: Invalid request format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /vla/generate-cognitive-plan:
+    post:
+      summary: Generate a cognitive plan from a high-level goal
+      description: Creates a detailed plan to achieve a high-level goal using LLM-based reasoning
+      operationId: generateCognitivePlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CognitivePlanRequest'
+      responses:
+        '200':
+          description: Successfully generated cognitive plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CognitivePlanResponse'
+        '400':
+          description: Invalid request format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /vla/execute-action-plan:
+    post:
+      summary: Execute an action plan on the humanoid robot
+      description: Executes a sequence of actions on the humanoid robot
+      operationId: executeActionPlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionPlanExecutionRequest'
+      responses:
+        '200':
+          description: Successfully started action plan execution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionPlanExecutionResponse'
+        '400':
+          description: Invalid request format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /vla/perception-data:
+    get:
+      summary: Get current perception data
+      description: Retrieves current vision and sensor data from the humanoid robot
+      operationId: getPerceptionData
+      responses:
+        '200':
+          description: Successfully retrieved perception data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerceptionDataResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /vla/system-status:
+    get:
+      summary: Get current system status
+      description: Returns the current status of the VLA system
+      operationId: getSystemStatus
+      responses:
+        '200':
+          description: Successfully retrieved system status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusResponse'
+
+  /vla/refine-plan:
+    post:
+      summary: Refine an existing plan based on feedback
+      description: Updates a plan based on execution feedback and new information
+      operationId: refinePlan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanRefinementRequest'
+      responses:
+        '200':
+          description: Successfully refined plan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanRefinementResponse'
+        '400':
+          description: Invalid request format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application.json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    VoiceCommandRequest:
+      type: object
+      required:
+        - command_text
+      properties:
+        command_text:
+          type: string
+          description: Text of the voice command
+          example: "Go to the kitchen and bring me a cup"
+        audio_data:
+          type: string
+          description: Base64 encoded audio data (optional if command_text provided)
+          format: byte
+          nullable: true
+        context:
+          type: object
+          description: Additional context for command processing
+          properties:
+            robot_position:
+              $ref: '#/components/schemas/Position'
+            visible_objects:
+              type: array
+              items:
+                type: string
+              description: Objects currently visible to the robot
+              example: ["cup", "table", "kitchen_counter"]
+            robot_capabilities:
+              type: array
+              items:
+                type: string
+              description: List of robot capabilities available
+              example: ["navigation", "manipulation", "communication"]
+            environment_state:
+              type: object
+              description: Additional environmental context
+
+    VoiceCommandResponse:
+      type: object
+      properties:
+        command_id:
+          type: string
+          description: Unique identifier for the processed command
+          example: "cmd_12345"
+        status:
+          type: string
+          description: Processing status
+          enum: [received, processing, planned, executing, completed, failed]
+          example: "executing"
+        interpreted_intent:
+          type: string
+          description: The interpreted intent from the command
+          example: "navigation_and_manipulation"
+        cognitive_plan:
+          $ref: '#/components/schemas/CognitivePlan'
+        execution_status:
+          type: string
+          description: Current execution status
+          example: "moving_to_destination"
+
+    CognitivePlanRequest:
+      type: object
+      required:
+        - goal_description
+        - environment_state
+      properties:
+        goal_description:
+          type: string
+          description: High-level goal to achieve
+          example: "Clean the room by picking up items and organizing the space"
+        environment_state:
+          $ref: '#/components/schemas/EnvironmentState'
+        user_preferences:
+          type: object
+          description: User preferences for plan execution
+          example: {"speed_preference": "normal", "safety_priority": "high"}
+
+    CognitivePlanResponse:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          description: Unique identifier for the generated plan
+          example: "plan_67890"
+        plan:
+          $ref: '#/components/schemas/CognitivePlan'
+        estimated_duration:
+          type: number
+          format: float
+          description: Estimated time to complete plan in seconds
+          example: 300.0
+        confidence:
+          type: number
+          format: float
+          description: Confidence in plan feasibility (0.0-1.0)
+          example: 0.92
+
+    ActionPlanExecutionRequest:
+      type: object
+      required:
+        - plan
+      properties:
+        plan:
+          $ref: '#/components/schemas/CognitivePlan'
+        execution_parameters:
+          type: object
+          description: Parameters for execution
+          properties:
+            speed_multiplier:
+              type: number
+              format: float
+              description: Speed multiplier for all actions (0.1-2.0)
+              example: 1.0
+            safety_margin:
+              type: number
+              format: float
+              description: Safety margin multiplier (0.1-1.5)
+              example: 1.0
+
+    ActionPlanExecutionResponse:
+      type: object
+      properties:
+        execution_id:
+          type: string
+          description: Unique identifier for the execution
+          example: "exec_54321"
+        status:
+          type: string
+          description: Execution status
+          enum: [pending, started, in_progress, completed, failed, cancelled]
+          example: "started"
+        estimated_completion:
+          type: string
+          format: date-time
+          description: Estimated completion time
+          example: "2025-12-17T15:30:00Z"
+        robot_status:
+          $ref: '#/components/schemas/RobotStatus'
+
+    PerceptionDataResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when data was captured
+          example: "2025-12-17T15:00:00Z"
+        detected_objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/DetectedObject'
+        environment_state:
+          $ref: '#/components/schemas/EnvironmentState'
+        sensor_readings:
+          type: object
+          description: Raw sensor readings
+          example: {"lidar_distances": [], "imu_data": {}}
+
+    SystemStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Overall system status
+          enum: [healthy, degraded, error, initializing]
+          example: "healthy"
+        cpu_usage:
+          type: number
+          format: float
+          description: CPU usage percentage
+          example: 45.2
+        memory_usage:
+          type: number
+          format: float
+          description: Memory usage percentage
+          example: 68.7
+        battery_level:
+          type: number
+          format: float
+          description: Battery level (0.0-1.0)
+          example: 0.85
+        last_vision_update:
+          type: string
+          format: date-time
+          description: Time of last vision system update
+          example: "2025-12-17T15:00:00Z"
+        last_command_processed:
+          type: string
+          format: date-time
+          description: Time of last command processed
+          example: "2025-12-17T15:00:30Z"
+
+    PlanRefinementRequest:
+      type: object
+      required:
+        - original_plan
+        - feedback
+      properties:
+        original_plan:
+          $ref: '#/components/schemas/CognitivePlan'
+        feedback:
+          type: object
+          description: Execution feedback for refinement
+          properties:
+            completed_tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskExecutionResult'
+            failed_tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskExecutionResult'
+            new_information:
+              type: object
+              description: New environmental information
+              example: {"obstacle_detected": {"location": {"x": 2.5, "y": 1.0}, "type": "furniture"}}
+
+    PlanRefinementResponse:
+      type: object
+      properties:
+        refined_plan:
+          $ref: '#/components/schemas/CognitivePlan'
+        changes_made:
+          type: array
+          items:
+            type: string
+          description: Description of changes made to the plan
+          example: ["Rerouted navigation task due to obstacle", "Added perception task to verify path"]
+        confidence:
+          type: number
+          format: float
+          description: Confidence in the refined plan (0.0-1.0)
+          example: 0.88
+
+    CognitivePlan:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          description: Unique identifier for the plan
+          example: "plan_789"
+        description:
+          type: string
+          description: Brief description of the plan
+          example: "Kitchen Cup Retrieval"
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dependency'
+        estimated_total_duration:
+          type: number
+          format: float
+          description: Estimated total time to complete in seconds
+          example: 300.0
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the task
+          example: "task_001"
+        description:
+          type: string
+          description: Detailed description of what to do
+          example: "Navigate to kitchen counter"
+        type:
+          type: string
+          description: Type of task
+          enum: [navigation, manipulation, perception, communication, other]
+          example: "navigation"
+        parameters:
+          type: object
+          description: Task-specific parameters
+          example: {"target_location": "kitchen_counter", "precision": "high"}
+        dependencies:
+          type: array
+          items:
+            type: string
+          description: IDs of tasks that must complete first
+          example: ["task_000"]
+        estimated_duration:
+          type: number
+          format: float
+          description: Estimated time to complete in seconds
+          example: 60.0
+
+    Dependency:
+      type: object
+      properties:
+        source_task_id:
+          type: string
+          description: ID of the task that must complete first
+          example: "task_001"
+        target_task_id:
+          type: string
+          description: ID of the task that depends on the source
+          example: "task_002"
+        type:
+          type: string
+          description: Type of dependency
+          enum: [finish_to_start, start_to_start, finish_to_finish, start_to_finish]
+          example: "finish_to_start"
+
+    TaskExecutionResult:
+      type: object
+      properties:
+        task_id:
+          type: string
+          description: ID of the task
+          example: "task_001"
+        status:
+          type: string
+          enum: [completed, failed, cancelled]
+          example: "completed"
+        execution_time:
+          type: number
+          format: float
+          description: Actual execution time in seconds
+          example: 58.2
+        success:
+          type: boolean
+          description: Whether the task was completed successfully
+          example: true
+        error_message:
+          type: string
+          description: Error message if task failed (optional)
+          example: "Path blocked by obstacle"
+          nullable: true
+
+    DetectedObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the detected object
+          example: "obj_001"
+        name:
+          type: string
+          description: Name or classification of the object
+          example: "red_cup"
+        type:
+          type: string
+          description: Type of classification
+          example: "cup"
+        position:
+          $ref: '#/components/schemas/Position'
+        confidence:
+          type: number
+          format: float
+          description: Confidence in detection (0.0-1.0)
+          example: 0.89
+        properties:
+          type: object
+          description: Additional properties of the object
+          example: {"color": "red", "material": "ceramic", "height": 0.1}
+
+    Position:
+      type: object
+      properties:
+        x:
+          type: number
+          format: float
+          description: X coordinate in meters
+          example: 1.5
+        y:
+          type: number
+          format: float
+          description: Y coordinate in meters
+          example: 2.0
+        z:
+          type: number
+          format: float
+          description: Z coordinate in meters
+          example: 0.8
+
+    EnvironmentState:
+      type: object
+      properties:
+        robot_position:
+          $ref: '#/components/schemas/Position'
+        known_objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KnownObject'
+        navigation_map:
+          type: object
+          description: Navigation map data
+          example: {"resolution": 0.05, "width": 100, "height": 100}
+        obstacles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Obstacle'
+        time_of_day:
+          type: string
+          description: Current time of day
+          enum: [morning, afternoon, evening, night]
+          example: "afternoon"
+
+    KnownObject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the object
+          example: "cup_01"
+        name:
+          type: string
+          description: Name of the object
+          example: "red_cup"
+        type:
+          type: string
+          description: Type classification
+          example: "cup"
+        position:
+          $ref: '#/components/schemas/Position'
+        is_movable:
+          type: boolean
+          description: Whether the object can be moved
+          example: true
+
+    Obstacle:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the obstacle
+          example: "obs_001"
+        type:
+          type: string
+          description: Type of obstacle
+          example: "furniture"
+        position:
+          $ref: '#/components/schemas/Position'
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        certainty:
+          type: number
+          format: float
+          description: Certainty of obstacle detection (0.0-1.0)
+          example: 0.95
+
+    Dimensions:
+      type: object
+      properties:
+        width:
+          type: number
+          format: float
+          description: Width in meters
+          example: 0.8
+        depth:
+          type: number
+          format: float
+          description: Depth in meters
+          example: 0.6
+        height:
+          type: number
+          format: float
+          description: Height in meters
+          example: 0.8
+
+    RobotStatus:
+      type: object
+      properties:
+        battery_level:
+          type: number
+          format: float
+          description: Battery level (0.0-1.0)
+          example: 0.85
+        balance_status:
+          type: string
+          description: Current balance status
+          enum: [stable, unstable, critical]
+          example: "stable"
+        current_task:
+          type: string
+          description: Current task being executed
+          example: "Navigating to kitchen"
+        operational:
+          type: boolean
+          description: Whether robot is operational
+          example: true
+        error_code:
+          type: string
+          description: Current error code if any (optional)
+          example: "none"
+          nullable: true
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid request parameters"
+        error_code:
+          type: string
+          description: Error code
+          example: "INVALID_PARAMS"
+        timestamp:
+          type: string
+          format: date-time
+          description: Time when error occurred
+          example: "2025-12-17T15:00:00Z"
+
+tags:
+  - name: VLA Processing
+    description: Voice, Language, and Action processing endpoints
+  - name: Cognitive Planning
+    description: High-level reasoning and planning endpoints
+  - name: Action Execution
+    description: Robot action execution endpoints
+  - name: Perception
+    description: Vision and sensor data endpoints
+  - name: System Status
+    description: System monitoring and status endpoints
+  - name: Plan Refinement
+    description: Dynamic plan adjustment endpoints
+
+externalDocs:
+  description: Documentation for Vision-Language-Action systems
+  url: https://ros2-ai-dev-book.example.com/module4
