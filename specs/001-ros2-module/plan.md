@@ -68,6 +68,10 @@ docusaurus.config.js             # Main Docusaurus configuration
 
 **Structure Decision**: Single documentation project using Docusaurus standard structure with module-specific organization. The docs/ directory contains the book content organized by modules and chapters, with proper sidebar navigation configuration.
 
+##Architecture
+**SiteMap URL** : 
+
+
 ## Complexity Tracking
 
 > **Fill ONLY if Constitution Check has violations that must be justified**

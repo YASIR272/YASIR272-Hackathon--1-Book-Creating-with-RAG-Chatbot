@@ -33,7 +33,7 @@ This plan implements Module 2 of the Docusaurus-based book for AI developers app
 - ✅ **Quality Gates**: Testing strategy includes validation of content accuracy
 
 ## Project Structure
-
+SiteMap URL = https://frontendbook-theta.vercel.app/sidemap.xml
 ### Documentation (this feature)
 
 ```text
