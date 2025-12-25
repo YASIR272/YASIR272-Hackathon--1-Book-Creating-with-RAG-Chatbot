@@ -1,30 +1,22 @@
 // @ts-check
-// `@ts-check` enables tsconfig.json's "noImplicitAny: true" option
-
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Physical AI & Humanoid Robotics',
-  tagline: 'The Robotic Nervous System - A Guide for AI Developers',
-  favicon: 'img/favicon.ico',
+  tagline: 'Bridging the Digital Brain and the Physical Body',
+  favicon: 'img/logo.svg',
 
-  // Set the production url of your site here
-  url: 'https://your-username.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/frontend_book/',
+  url: 'https://frontend-book.vercel.app',
+  baseUrl: '/',
 
-  // GitHub pages deployment config.
-  organizationName: 'your-username', // Usually your GitHub org/user name.
-  projectName: 'frontend_book', // Usually your repo name.
+  organizationName: 'shawn-goreys-projects',
+  projectName: 'frontend_book',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -33,113 +25,84 @@ const config = {
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/your-username/your-project-name/tree/main/packages/create-docusaurus/templates/shared/',
+          routeBasePath: 'docs',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/your-username/your-project-name/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      },
     ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
-      metadata: [
-        {name: 'keywords', content: 'ROS 2, robotics, AI, artificial intelligence, humanoid robotics, robot operating system, rclpy, URDF, robot development'},
-        {name: 'description', content: 'A comprehensive guide to ROS 2 for AI developers entering humanoid robotics. Learn about ROS 2 architecture, Python agents with rclpy, and humanoid robot description with URDF.'},
-        {name: 'og:title', content: 'Physical AI & Humanoid Robotics: The Robotic Nervous System'},
-        {name: 'og:description', content: 'A comprehensive guide to ROS 2 for AI developers entering humanoid robotics.'},
-        {name: 'og:type', content: 'website'},
-        {name: 'og:url', content: 'https://your-username.github.io/frontend_book/'},
-      ],
-      navbar: {
-        title: 'Physical AI & Humanoid Robotics',
-        logo: {
-          alt: 'Physical AI & Humanoid Robotics Logo',
-          src: 'img/logo.svg',
+  themeConfig: {
+    image: 'img/social-card.png',
+
+    metadata: [
+      {
+        name: 'description',
+        content:
+          'A complete guide to Physical AI and Humanoid Robotics using ROS 2, Gazebo, NVIDIA Isaac, and Vision-Language-Action systems.',
+      },
+      {
+        name: 'keywords',
+        content:
+          'Physical AI, Humanoid Robotics, ROS 2, Gazebo, NVIDIA Isaac, VLA, Robotics Simulation',
+      },
+    ],
+
+    navbar: {
+      title: 'Physical AI & Humanoid Robotics',
+      logo: {
+        alt: 'Physical AI Logo',
+        src: 'img/logo.svg',
+        width: 32,
+        height: 32,
+      },
+      items: [
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Book Modules',
         },
-        items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
-      },
-    }),
+        {
+          to: '/chatbot',
+          label: 'Chatbot',
+          position: 'left',
+        },
+        {
+          href: 'https://github.com',
+          label: 'GitHub',
+          position: 'right',
+        },
+      ],
+    },
+
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Modules',
+          items: [
+            { label: 'ROS 2 Nervous System', to: '/docs/module1/' },
+            { label: 'Digital Twin', to: '/docs/module2/' },
+            { label: 'AI Robot Brain', to: '/docs/module3/' },
+            { label: 'Vision-Language-Action', to: '/docs/module4/' },
+          ],
+        },
+      ],
+      copyright: `© ${new Date().getFullYear()} Physical AI & Humanoid Robotics`,
+    },
+
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  },
 };
 
 export default config;
